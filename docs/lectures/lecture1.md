@@ -1,1 +1,0 @@
-# Lecutre 1
