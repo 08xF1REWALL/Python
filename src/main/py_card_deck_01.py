@@ -1,8 +1,12 @@
-import collections  # Import collections module to create named tuples
-
+import collections# Import collections module to create named tuples
+from random import choice# Import choice function from random module
 # Create a named tuple to represent a card
 Card = collections.namedtuple('Card', ['rank', 'suit'])
+suit_values = {'spades': 3, 'hearts': 2, 'diamonds': 1, 'clubs': 0}# Define suit values for comparison
 
+def spades_high(card):
+   rank_value = FrenchDeck.ranks.index(card.rank)# Get the index of the card's rank
+   return rank_value * len(suit_values) + suit_values[card.suit]# Calculate the value of the card based on rank and suit
 class FrenchDeck:
     # Create a list of ranks and suits for the deck of cards
     ranks = [str(n) for n in range(2, 11)] + list('JQKA')
@@ -25,8 +29,13 @@ if __name__ == '__main__':
     # Create an instance of the FrenchDeck class
     deck = FrenchDeck()
     
+    print(choice(deck))# Print a random card from the deck
     # Print the number of cards in the deck
     print(len(deck))
+    
+    print(Card('K', 'hearts') in deck)# Print a specific card (Queen of hearts)
+    
+    print(Card('7', 'beasts') in deck)# Print a specific card (Queen of hearts)
     
     # Print the first card in the deck
     print(deck[0])
@@ -39,3 +48,5 @@ if __name__ == '__main__':
     
     # Print a slice of the last 5 cards in the deck
     print(deck[-5:])	
+    for card in sorted(deck, key=spades_high):
+        print(card)# Sort the deck of cards using the spades_high function and print each card
