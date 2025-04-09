@@ -215,3 +215,232 @@ print(p.__getnewargs__())
 12. s.index(e)
 print([10, 20, 30].index(20))
 print(["a", "b", "c"].index("a"))
+
+13. s.insert(p, e)
+a = [10, 30]
+a.insert(1, 20)
+print(a)
+
+14. s.__iter__()
+for i in [1, 2, 3]:
+print(1)
+
+15. s.__len__()
+print(len([1, 2, 3]))
+print(len(('a', 'b')))
+
+16. s.__mul__(n): repeate concatenation
+a = [1, 2]
+b = a * 2
+print(b)  # [1, 2, 1, 2]
+print(a)  # [1, 2] → original unchanged
+print(a is b)  # False → different objects
+
+17. s.__imul__(n): in place repeated concatenation
+t = (1, 2)
+print(id(t))
+t *= 2
+print(t)           # (1, 2, 1, 2)
+print(id(t))       # different ID → new object
+
+
+18. s.__rmul__(n) 
+a = [1, 2, 3]
+for item in reversed(a)
+print(item)
+
+19. s.pop([p])
+a = [10, 20, 30]
+print(a.pop())     # 30 (last item)
+print(a.pop(0))    # 10 (item at index 0)
+
+20. s.remove(e)
+a = [10, 20, 20, 30]
+a.remove(20)
+print(a)  # [10, 30, 20]
+
+21. s.reverse(): reverse item in place
+a = [1, 2, 3]
+a.reverse()
+print(a)  # [3, 2, 1]
+
+22. s.__reversed__(): get iterator scanning from last to first
+a = [1, 2, 3]
+for item in reversed(a):
+print(a)
+
+23. s.__setitem__(p, e)
+a = [10, 20, 30]
+a[1] = 99
+print(a)
+
+24. a = [3, 1, 2]
+a.sort(a)
+a.sort(reverse=true)
+print(a)
+words = ["apple", "banana", "cherry"]
+words.sort(key=len)
+print(words)
+
+## Slicing
+l = [10, 20, 30, 40, 50, 60]
+l[:2]
+[10, 20]
+l[2:]
+[30, 40, 50, 60]
+
+```py
+invoice = """
+... 0.....6.................................40........52...55........
+... 1909 Pimoroni PiBrella $17.50 3 $52.50
+... 1489 6mm Tactile Switch x20 $4.95 2 $9.90
+... 1510 Panavise Jr. - PV-201 $28.00 1 $28.00
+... 1601 PiTFT Mini Kit 320x240 $34.95 1 $34.95
+"""
+SKU = slice(0, 6)
+DESCRIPTION = slice(6, 40)
+UNIT_PRICE = slice(40, 52)
+QUANTITY = slice(52, 55)
+ITEM_TOTAL= slice(55, none)
+line_item = invoice.split('\n')[2:]
+    print(item[UNIT_PRICE], item[DESCRIPTION])
+```
+
+## Multidimensional Slicing and Ellipsis
+
+```py
+l = list(range(10))
+print(l)
+[0, 1, 2, 3, 4, 5, 6, 7, 8, 9]
+l [2:5] = [20, 30]
+print(l)
+[0, 1, 20, 30, 5, 6, 7, 8, 9]
+del l[5:7]
+[0, 1, 20, 30, 5, 8, 9]
+
+l[3::2] = [11, 22] # :: start stop
+
+[0, 1, 20, 11, 5, 22, 9]
+
+l [2:5] = [100]
+[0, 1, 100, 22, 9]
+
+
+l = [1, 2, 3]
+l * 5
+[1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3, 1, 2, 3]
+
+```
+
+## Building lists of Lists
+```py
+board = [['_'] * 3 for i in range(3)]
+[['_', '_', '_'], ['_', '_', '_'], ['_', '_', '_']]
+
+weird_board = [['_'] * 3] * 3
+print(weird_board)
+weird_board [1][2] = 'O'
+[['_', '_', 'O'], ['_', '_', 'O'], ['_', '_', 'O']]
+
+
+
+```
+
+```py
+board = []
+for i in range(3)
+    row = ['_'] * 3
+    board.append(row)
+for row in board:
+    print(row)
+
+```
+## Augmented Assignment with sequences
+```py
+l = [1, 2, 3]
+print(id(l))
+l *= 2
+print(l)
+print(id(l))
+t = (1, 2, 3)
+print(id(t))
+t *= 2
+print(id(t))
+
+```
+python3 mut_unmut_seq_02.py
+140161258900288
+[1, 2, 3, 1, 2, 3]
+140161258900288
+140161257297344
+140161257000672
+
+```py
+t = (1, 2, [30, 40])
+t[2] += [50, 60]
+print(t)
+```
+- find insert position with bisect
+
+```py
+import bisect # imports the bisect module for binary search
+import sys # let the script read command-line arguments like left
+ 
+HAYSTACK = [1, 4, 5, 6, 8, 12, 15, 20, 21, 23, 23, 26, 29, 30]
+NEEDLES = [0, 1, 2, 5, 8, 10, 22, 23, 29, 30, 31]
+
+ROW_FMT = '{0:2d} @ {1:2d} {2}{0:<2d}'
+
+def demo(bisect_fn):
+    for needle in reversed(NEEDLES)
+    position = bisect_fn(HAYSTACK, needle)
+    offset = position * ' |'
+    print(ROW_FMT.format(needle, position, offset))
+    
+if __name__ == '__main__':
+    if sys.argv[-1] == 'left':
+        bisect_fn = bisect.bisect_left
+    else:
+        bisect_fn = bisect.bisect
+    print('DEMO:', bisect_fn.__name__)
+    print('haystack ->', ' '.join('%2d' % n for n in HAYSTACK))
+    demo(bisect_fn)
+```
+algorithm: sorted lists (O(log n) time complexity)
+
+n = is the element
+
+log₂(14) = 3.8074 = 4 steps 
+log₂(14) = ln(14) / ln(2)
+eʸ = 14, eʸ = 2.
+2.6390573296152584 / 0.6931471805599453 ≈ 3.807354922057604
+
+## inserting with bisect.insort
+
+```py
+import bisect
+import random
+
+SIZE = 7 
+random.seed(1729)
+
+my_list = []
+for i in range(SIZE):
+    new_item = random.randrange(SIZE*2)
+    print(new_item)
+    bisect.insort(my_list, new_item)
+    print('%2d ->' %new_item, my_list)
+```
+
+## Arrays
+
+
+
+
+
+
+
+
+
+
+
