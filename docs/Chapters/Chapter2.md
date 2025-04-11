@@ -433,14 +433,102 @@ for i in range(SIZE):
 ```
 
 ## Arrays
+- Creating and saving and loading a larg array of floats
+
+```py
+import os
+from array import array
+from random import random
+
+# Create an array of 10 million random floats
+floats = array('d', (random() for i in range(10**7))) #'d' (double-precision float, 8 bytes each)
 
 
+print(floats[-1])  # Print the last element
 
+# Write the array to a binary file
+fp = open('../../examples/floats.bin', 'wb') # write-binary mode ('wb').
+floats.tofile(fp) # write the contents to file as binary data
+fp.close()
 
+# Read the array back from the file
+floats2 = array('d')
+fp = open('../../examples/floats.bin', 'rb') # read binary mode ('rb').
+floats2.fromfile(fp, 10**7)
+fp.close()
+print(floats2[-1])  # Print the last element
+```
 
+## Memory Views
+is a shared memory class sequence type, it let us handle slices of array without copying bytes.
 
+array.array('h', [.....]) it create an array type code h which represent signed short integer, 2 bytes each, 16 bits, range -2^15 - 2^15 -1 -32768 - 32767
+ signed short integer : -2^15 - 2^15 -1 -32768 - 32767
+ unsighned byte: 0 to 255
+`
 
+```py
+numbers = array.array('h', [-2, -1, 0, 1, 2])
+memv = memoryview(numbers) # create memory view object, thats provide view into the memory of numbers, without copying data.
+len(memv)
+# Output: 5
+memv[0]
+# Output: -2
+memv_oct = memv.cast('B') # casting to unsighed bytes 
+memv_oct.tolist() # convert memoryview into py list of integers.
+# Output: [254, 255, 255, 255, 0, 0, 1, 0, 2, 0]
+memv_oct[5] = 4
+numbers
+# Output: array('h', [-2, -1, 1024, 1, 2])
 
+```
 
+## NumPy and Scipy
+1. Numpy Methods: arange, array, zeros, random.randint, reshape, mean, save, load
+2. array.array Methods: append, extend, pop, tofile, fromfile, tolist
 
+```py
+import numpy
+import random
+a = array.random(12)
+a = numpy.arange(a)
+print(a)
+
+```
+
+```py
+import numpy as np
+from array import array
+
+# Create arrays
+a_numpy = np.arange(12, dtype=np.int16)
+a_array = array('h', range(12))
+
+# Manipulate with numpy
+print("Original numpy array:", a_numpy)
+print("Reshaped (3x4):", a_numpy.reshape(3, 4))
+print("Squared:", np.power(a_numpy, 2))
+print("Mean:", a_numpy.mean())
+print("Values > 5:", a_numpy[a_numpy > 5])
+
+# Manipulate with array.array
+print("\nOriginal array.array:", a_array)
+a_array.append(12)
+print("After append(12):", a_array)
+a_array.pop()
+print("After pop():", a_array)
+
+# Save to binary file (like in array_floats_02.py)
+with open('examples/a_array.bin', 'wb') as f:
+    a_array.tofile(f)
+
+# Load from binary file
+a_loaded = array('h')
+with open('examples/a_array.bin', 'rb') as f:
+    a_loaded.fromfile(f, 12)
+print("Loaded array.array:", a_loaded)
+
+# Save numpy array
+np.save('examples/a_numpy.npy', a_numpy)
+```
 
