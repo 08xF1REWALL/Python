@@ -36,3 +36,11 @@ print("Loaded array.array:", a_loaded)
 
 # Save numpy array
 np.save('../../examples/numpy.bin', a_numpy)
+
+# Load numpy array
+a_loaded_numpy = np.load('../../examples/numpy.bin.npy')
+print("Loaded numpy array:", a_loaded_numpy)
+print("Last three elements_", a_loaded_numpy[-3:])
+a_loaded_numpy *= 2
+print("After multiplication:", a_loaded_numpy)
+print("Last three elements_", a_loaded_numpy[-3:])

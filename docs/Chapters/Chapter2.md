@@ -531,4 +531,82 @@ print("Loaded array.array:", a_loaded)
 # Save numpy array
 np.save('examples/a_numpy.npy', a_numpy)
 ```
+## Numpy also supports high-level operation for loading and saving operation on all elements
 
+```py
+import numpy 
+floats = numpy.loadtxt('float-10M.txt')
+print(float[-3:]) 
+
+
+```
+## working with deque
+
+```py
+dq = deque(range(10), maxlen=10)
+print(dq)
+dq.rotate(3)
+print(dq)
+dq.rotate(-4)
+dq.appendleft(-1)
+print(dq)
+dq.extend([11, 22, 33])
+print(dq)
+dq.extendleft([10, 20, 30, 40])
+```
+
+## mixed bag
+
+l = [28, 14, '28', 5, '9', '1', 0, 6, '23', 19]
+sorted(l, key=int)
+
+## insertion sort
+Outer loop: Runs from index 1 to n-1
+total comparision: 1 + 2 + 3 + (n-1) = n(n-1)/2 = n^2/2
+O(n^2)
+n^2 is the total operation (comparisions + shifts, up to 90 in the worst case)
+example : 
+n = 10 
+n(n-1)/2 = (100 - 10)/2 = 45 -> this will be the shifts
+
+l = [28, 14, '28', 5, '9', '1', 0, 6, '23', 19]
+
+comparisions n(n−1)/2=(10⋅9)2=45.
+shifts n(n-1)/2 = 45
+total operation 45 + 45 = 90
+
+
+```py
+def insertion_sort(arr, key=lamda x: x):
+    for i in range(1, len(arr)):
+        current = arr[i]
+        j = i - 1
+        # Compare using the key function and shift larger elements right
+        while j >=0 and key(arr[j]) > key(current):
+            arr[j + 1] = arr[j]
+            j -=1
+            arr[j + 1] = current
+    return arr
+l = [28, 14, '28', 5, '9', '1', 0, 6, '23', 19]
+insertion_sort(l, key=int)
+print("Sorted List:", l)
+
+
+```
+
+```py
+def insertion_sort(arr, key=lambda x: x):
+    for i in range(1, len(arr)):
+        current = arr[i]
+        j = i - 1
+        while j >= 0 and key(arr[j]) > key(current):
+            print(f"i={i}, j={j}, arr[j]={arr[j]}, current={current}, key(arr[j])={key(arr[j])} > key(current)={key(current)}")
+            arr[j + 1] = arr[j]
+            j -= 1
+        arr[j + 1] = current
+    return arr
+
+l = [28, 14, '28', 5, '9', '1', 0, 6, '23', 19]
+insertion_sort(l.copy(), key=int)
+
+```
