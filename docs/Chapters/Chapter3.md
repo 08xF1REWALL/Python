@@ -166,5 +166,62 @@ print(d_proxy)
 A set is a collection of unique objects. A basic use case is removing duplication:
 
 ```py
+l = ['spam', 'spam', 'eggs', 'spam']
+set(l)
 
 ```
+
+```py
+found = 0
+for n in needles:
+  if n in haystack:
+    found += 1
+
+```
+
+## Count occurences 
+
+```py
+found = len(set(needles) & set(haystack))
+
+```
+## frozenset in py
+it create a immutable set 
+
+```py
+print(frozenset(range(10)))
+frozenset({0, 1, 2, 3, 4, 5, 6, 7, 8, 9})
+
+
+
+```
+
+```py
+from unicodedata import name
+{chr(i) for i in range(32, 256) if 'SING' in name(chr(i), '')}
+
+```
+## Hash in py
+
+A number "int" that represent an object for a quick comaprison and lookup. It used for comparison in dict and set to find element fast (O(1)).
+
+How It Works
+- Compute `hash(search_key)` to get a bucket index.
+- Check bucket:
+  - Empty → Raise `KeyError`.
+  - Has `found_key:found_value` → If `search_key == found_key`, return `found_value`; else, handle collision.
+- Resolve collisions using different hash bits (`perturb` function) to find another bucket.
+- Insert/update: Place new pair in empty bucket or overwrite matching key’s value.
+- Resize table when crowded, rehashing items to keep collisions low.
+- **Efficiency**: Average 1–2 collisions, making operations fast.
+
+### O(1) Time Complexity
+- **Why O(1)**: Hashing, bucket access, and average probe count (1–2) are constant time, independent of table size (\(n\)).
+- **Math**: Time \( T = c_1 + c_2 \cdot E[\text{probes}] \), where all terms are constant.
+- **Resizing**: Rare, amortized O(1) per insertion.
+- **Worst Case**: O(\(n\)) if many collisions (rare).
+
+### Key Points
+- **Strengths**: Fast O(1) operations, supports hashable keys.
+- **Limitations**: Needs immutable keys, memory overhead, rare O(\(n\)) worst case.
+- Python’s hash tables are optimized for speed and reliability.
