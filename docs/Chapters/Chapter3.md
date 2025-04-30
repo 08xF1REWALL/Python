@@ -225,3 +225,11 @@ How It Works
 - **Strengths**: Fast O(1) operations, supports hashable keys.
 - **Limitations**: Needs immutable keys, memory overhead, rare O(\(n\)) worst case.
 - Python’s hash tables are optimized for speed and reliability.
+
+## How Sets Work
+
+- Set elements must be hashable objects.
+- Sets have a significant memory overhead.
+- Membership testing is very efficient.
+- Element ordering depends on insertion order.
+- Adding elements to a set may change the order of other elements.
