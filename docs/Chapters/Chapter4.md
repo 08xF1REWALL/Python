@@ -46,6 +46,75 @@ with open('filter.gif', 'rb') as fp:
     img = memoryview(fp.read())
 header = img[:10]
 print(bytes(header))
-struct.unpack(fmt, header)
+s = struct.unpack(fmt, header)
+print (s[1])
+print (s[2])
+print (s[3])
+print (s[4])
+
+```
+
+## Basic Encoders/Decoders
+
+utf8, utf-8, U8
+
+```py
+for codec in ['latin_1', 'utf_8', 'utf_16']:
+    print(codec, 'El Niño'.encode(codec), sep='\t')
+
+```
+
+## Handling Text Files
+
+```py
+import os
+
+# Step 1: Write 'café' to a file with UTF-8 encoding
+fp = open('cafe.txt', 'w', encoding='utf_8')
+expression = "fp"
+value = fp
+print(expression.rjust(30), '->', repr(value))
+expression = "fp.write('café')"
+value = fp.write('café')
+print(expression.rjust(30), '->', repr(value))
+fp.close()
+
+# Step 2: Check the file size
+expression = "os.stat('cafe.txt').st_size"
+value = os.stat('cafe.txt').st_size
+print(expression.rjust(30), '->', repr(value))
+
+# Step 3: Read the file with default encoding (cp1252 on Windows)
+fp2 = open('cafe.txt')  # Default encoding (e.g., cp1252 on Windows)
+expression = "fp2"
+value = fp2
+print(expression.rjust(30), '->', repr(value))
+expression = "fp2.encoding"
+value = fp2.encoding
+print(expression.rjust(30), '->', repr(value))
+expression = "fp2.read()"
+value = fp2.read()
+print(expression.rjust(30), '->', repr(value))
+fp2.close()
+
+# Step 4: Read the file with correct encoding (utf_8)
+fp3 = open('cafe.txt', encoding='utf_8')
+expression = "fp3"
+value = fp3
+print(expression.rjust(30), '->', repr(value))
+expression = "fp3.read()"
+value = fp3.read()
+print(expression.rjust(30), '->', repr(value))
+fp3.close()
+
+# Step 5: Read the file in binary mode
+fp4 = open('cafe.txt', 'rb')
+expression = "fp4"
+value = fp4
+print(expression.rjust(30), '->', repr(value))
+expression = "fp4.read()"
+value = fp4.read()
+print(expression.rjust(30), '->', repr(value))
+fp4.close()
 
 ```
