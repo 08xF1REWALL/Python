@@ -118,3 +118,132 @@ print(expression.rjust(30), '->', repr(value))
 fp4.close()
 
 ```
+
+## Unicoded Data normalize 
+
+```py
+from unicodedata import normalize
+def nfc_equal(str1, str2):
+    return normalize('NFC', str1) == normalize('NFC', str2)
+
+def fold_equal(str1, str2)
+    return (normalize('NFC', str1).casefold() == normalize('NFC', str2).casefold())
+
+s1 = 'é'               # composed character: U+00E9
+s2 = 'e\u0301' 
+print("NFC Equal:", nfc_equal(s1, s2))
+print("Fold equal:", fold_equal('straße', 'strasse'))
+```
+
+## Extreme normalization: taking out Diacritics
+
+```py
+import unicodedata
+import string
+
+def shave_marks(txt):
+"""Remove all diacritic marks"""
+norm_txt = unicodedata.normalize('NFD', txt) # convert the input into decomosed for using normalization form D
+shaved = ''.join(c for c in norm_txt if not unicodedata.combining(print(c)) # if not unicodedata this will return 0, but for é will return  join kept thee characters into one string without any separator
+return unicodedata.normalize('NFC', shaved)
+text_with_accents = "café naïve élève São Tomé"
+print ("original:", text_with_accent)
+print ("shaved :", shave_marks(text_with_accents))
+```
+
+```py
+import unicodedata
+import string
+
+def shaved_marks_latin(txt)
+norm_txt = unicodedata.normalize('NFD', txt)
+latin_base = False
+keepers = []
+for c in norm_txt:
+    if unicodedata.compining(c) and latin_base:
+        continue
+    keepers.append(c)
+    if not unicodedata.compining(c):
+        latin_base = c in string.ascii_letters
+    shaved = ''.join(keepers)
+    return unicodedata.normalize('NFC', shaved)
+
+text_with_accents = "café naïve élève São Tomé"
+print("original:", text_with_accents)
+print("shaved:", shaved_marks_latin(text_with_accents))
+
+```
+
+```py
+# mapping table for char to char replacement
+single_map = str.maketrans("""‚ƒ„†ˆ‹‘’“”•–—˜›""",
+                           """'f"*^<''""---~>""")
+
+# mapping table for char to string replacement
+multi_map = str.maketrans({
+ '€': '<euro>',
+ '…': '...',
+ 'Œ': 'OE',
+ '™': '(TM)',
+ 'œ': 'oe',
+ '‰': '<per mille>',
+ '‡': '**',
+})
+multi_map.update(single_map)
+
+def dewinize(txt):
+    """Replace Win1252 symbols with ASCII chars or sequences"""
+    return txt.translate(multi_map)
+def asciize(txt):
+    no_masks = shave_marks_latin(dewinize(txt))
+    no_marks = no_marks.replace('ß', 'ss')
+    return unicodeddata.normalize('NFKC', no_marks)
+
+```
+
+## local strxfrm function as sort key
+
+```py
+import local
+local.setlocale(locale.LC_COLLATE, 'pt_BR.UTF-8')
+fruits = ['caju', 'atemoia', 'cajá', 'açaí', 'acerola']
+sorted_fruits = sorted(fruites, key=local.strxfrm)
+print(sorted_fruits)
+```
+
+## Using pyuca.collator.sort_key method
+
+```py
+import pyuca
+coll = pyuca.Collator()
+fruits = ['caju', 'atemoia', 'cajá', 'açaí', 'acerola']
+sorted_fruits = sorted(fruits, key=coll.sort_key)
+print(sorted_fruits)
+```
+
+## Unicode database numerical character metadata
+
+- Unicode: is a universal standard of encoding, representating and handling text characters from virtually every language and writing system in the world.
+U+0041 for 'A'
+
+- Metadata: refers to the information about the charactes such as:
+
+1. names (Unicode)
+2. category(letter, number, punctuation)
+3. digit uppercase, or printable.
+4. and the numeric value.
+
+```py
+import unicodedata
+import re
+re_digit = re.compile(r'\d')
+sample = '1\xbc\xb2\u0969\u136b\u216b\u2466\u2480\u3285'
+for char in sample : 
+    char.center(6),
+    're_dig' if re_digit.match(char) else '-',
+    'isdig' if char.isdigit() else '-',
+    'isnum' if char.isnumeric() else '-',
+    format(unicodedata.numeric(char), '5.2f'),
+    unicodedata.name(char),
+    sep='\t')
+```
