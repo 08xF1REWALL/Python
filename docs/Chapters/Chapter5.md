@@ -68,3 +68,24 @@ fruits = ['strawberry', 'fig', 'apple', 'cherry', 'raspberry', 'banana']
 sorted(fruits, key=lambda word: word[::-1]) # word[start:stop:step] start where slice begins default = 0, stop where the slice ends default end of the starting. Step how to move through the string -1 means go backwards
 
 ```
+
+## The Seven Flavors of callable objects
+1. User defined functions : Create with def statments or lambda expressions
+2. Build in functions: A function implemented in c like len or time.strtime
+3. Build in methods: Method implemented in C like dict.get
+4. Methods: functions defined in the body of a class
+5. Classes: when invoked the class run its __new__ method to create an instance, the in __init__ to initialize ot, and the finally the instance is returned to the caller.
+6. Class instances : If a class definies __call__ method, then its instance may be invoiked as functions.
+7. Generatorr functions : Functions or methods that use the yield keyword. When called, generator functions return a generator object.
+
+- To determine wether if an object is callable in py, we use the callable() build in:
+
+```py
+print(abs, str, 13)
+print([callable(obj) for obj in (abs, str, 13)])
+
+```
+- User-Defined Callable Types: 
+
+
+
