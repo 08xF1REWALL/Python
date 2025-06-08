@@ -1,0 +1,329 @@
+def write_imports_to_file():
+    imports_content = """
+Python Imports: Standard Library and Third-Party Packages
+=====================================================
+
+This file lists key Python standard library modules and popular third-party packages,
+with explanations and their relevance to AI and Cybersecurity.
+Generated on April 19, 2025.
+
+Standard Library Modules
+-----------------------
+
+### File and Directory Handling
+- **os**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Operating system interfaces (e.g., file paths, directories).
+  - **ᴇxᴀᴍᴘʟᴇ**: `os.path.exists('file.txt')`
+  - **ᴀɪ**: Loads datasets, manages files.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: System navigation, file access control.
+
+- **sys**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: System-specific parameters (e.g., command-line arguments).
+  - **ᴇxᴀᴍᴘʟᴇ**: `sys.argv[1]`
+  - **ᴀɪ**: Script inputs for data processing.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Command-line tools.
+
+- **pathlib**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Object-oriented filesystem paths.
+  - **ᴇxᴀᴍᴘʟᴇ**: `pathlib.Path('file.txt').read_text()`
+  - **ᴀɪ**: Simplifies dataset access.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: File path handling.
+
+- **shutil**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: High-level file operations (e.g., copy, move).
+  - **ᴇxᴀᴍᴘʟᴇ**: `shutil.copy('src.txt', 'dst.txt')`
+
+- **glob**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Finds files matching patterns.
+  - **ᴇxᴀᴍᴘʟᴇ**: `glob.glob('*.txt')`
+  - **ᴀɪ**: Loads multiple dataset files.
+
+### Text Processing and Regular Expressions
+- **re**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Regular expressions for pattern matching.
+  - **ᴇxᴀᴍᴘʟᴇ**: `re.search(r'\d+', '123abc')`
+  - **ᴀɪ**: Text preprocessing for NLP.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Log parsing, packet analysis.
+
+- **string**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: String utilities (e.g., punctuation).
+  - **ᴇxᴀᴍᴘʟᴇ**: `string.ascii_letters`
+  - **ᴀɪ**: Text cleaning.
+
+### Data Structures and Collections
+- **collections**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Specialized containers (e.g., defaultdict, Counter).
+  - **ᴇxᴀᴍᴘʟᴇ**: `collections.defaultdict(list)`
+  - **ᴀɪ**: Data aggregation.
+
+- **array**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Efficient numeric arrays.
+  - **ᴇxᴀᴍᴘʟᴇ**: `array.array('i', [1, 2, 3])`
+  - **ᴀɪ**: Numerical tasks.
+
+- **heapq**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Heap-based priority queue.
+  - **ᴇxᴀᴍᴘʟᴇ**: `heapq.heappush(heap, item)`
+  - **ᴀɪ**: Algorithms like k-NN.
+
+### Date and Time
+- **datetime**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Date/time manipulation.
+  - **ᴇxᴀᴍᴘʟᴇ**: `datetime.datetime.now()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Log timestamps.
+
+- **time**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Time functions (e.g., delays).
+  - **ᴇxᴀᴍᴘʟᴇ**: `time.sleep(1)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Timing attacks.
+
+### Mathematics and Numbers
+- **math**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Mathematical functions.
+  - **ᴇxᴀᴍᴘʟᴇ**: `math.sqrt(16)`
+  - **ᴀɪ**: Numerical computations.
+
+- **random**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Pseudo-random numbers.
+  - **ᴇxᴀᴍᴘʟᴇ**: `random.choice([1, 2, 3])`
+  - **ᴀɪ**: Sampling, initialization.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Random keys.
+
+- **statistics**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Statistical functions.
+  - **ᴇxᴀᴍᴘʟᴇ**: `statistics.mean([1, 2, 3])`
+  - **ᴀɪ**: Data analysis.
+
+### Data Serialization and Parsing
+- **json**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: JSON encoding/decoding.
+  - **ᴇxᴀᴍᴘʟᴇ**: `json.loads('{"key": "value"}')`
+  - **ᴀɪ**: Data exchange.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: API responses.
+
+- **csv**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: CSV file handling.
+  - **ᴇxᴀᴍᴘʟᴇ**: `csv.reader(file)`
+  - **ᴀɪ**: Dataset loading.
+
+- **pickle**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Object serialization.
+  - **ᴇxᴀᴍᴘʟᴇ**: `pickle.dump(obj, file)`
+  - **ᴀɪ**: Model saving.
+
+### Networking and Internet
+- **socket**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Low-level networking.
+  - **ᴇxᴀᴍᴘʟᴇ**: `socket.socket(socket.AF_INET, socket.SOCK_STREAM)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Network scanning.
+
+- **urllib**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: URL handling.
+  - **ᴇxᴀᴍᴘʟᴇ**: `urllib.request.urlopen('http://example.com')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Web testing.
+
+- **http**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: HTTP utilities.
+  - **ᴇxᴀᴍᴘʟᴇ**: `http.client.HTTPConnection('example.com')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Protocol analysis.
+
+### Concurrency and Threading
+- **threading**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Thread-based parallelism.
+  - **ᴇxᴀᴍᴘʟᴇ**: `threading.Thread(target=func)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Concurrent tasks.
+
+- **multiprocessing**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Process-based parallelism.
+  - **ᴇxᴀᴍᴘʟᴇ**: `multiprocessing.Pool()`
+  - **ᴀɪ**: Parallel processing.
+
+- **asyncio**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Asynchronous I/O.
+  - **ᴇxᴀᴍᴘʟᴇ**: `asyncio.run(coro)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Async scanning.
+
+### Logging and Debugging
+- **logging**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Event logging.
+  - **ᴇxᴀᴍᴘʟᴇ**: `logging.info('Message')`
+  - **ᴀɪ**: Experiment tracking.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Security events.
+
+- **traceback**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Stack traces.
+  - **ᴇxᴀᴍᴘʟᴇ**: `traceback.print_exc()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Error analysis.
+
+- **pdb**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Python debugger.
+  - **ᴇxᴀᴍᴘʟᴇ**: `pdb.set_trace()`
+
+### Cryptography
+- **hashlib**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Hashing algorithms (e.g., SHA).
+  - **ᴇxᴀᴍᴘʟᴇ**: `hashlib.sha256(b'data').hexdigest()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Data integrity.
+
+- **secrets**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Cryptographically strong random numbers.
+  - **ᴇxᴀᴍᴘʟᴇ**: `secrets.token_hex(16)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Secure keys.
+
+### Miscellaneous
+- **itertools**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Iterator utilities.
+  - **ᴇxᴀᴍᴘʟᴇ**: `itertools.chain([1, 2], [3, 4])`
+  - **ᴀɪ**: Data iteration.
+
+- **functools**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Higher-order functions.
+  - **ᴇxᴀᴍᴘʟᴇ**: `functools.reduce(lambda x, y: x+y, [1, 2, 3])`
+  - **ᴀɪ**: Functional patterns.
+
+Third-Party Packages
+--------------------
+
+### General-Purpose
+- **requests**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Simplified HTTP requests.
+  - **ɪɴsᴛᴀʟʟ**: `pip install requests`
+  - **ᴇxᴀᴍᴘʟᴇ**: `requests.get('http://example.com')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: API testing, scraping.
+
+- **beautifulsoup4**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: HTML parsing for web scraping.
+  - **ɪɴsᴛᴀʟʟ**: `pip install beautifulsoup4`
+  - **ᴇxᴀᴍᴘʟᴇ**: `bs4.BeautifulSoup(html, 'html.parser')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Web data extraction.
+
+- **pyyaml**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: YAML parsing.
+  - **ɪɴsᴛᴀʟʟ**: `pip install pyyaml`
+  - **ᴇxᴀᴍᴘʟᴇ**: `yaml.safe_load(file)`
+  - **ᴀɪ**: Configuration files.
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Config management.
+
+### AI-Specific (Most Common)
+- **numpy**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Numerical computing with arrays.
+  - **ɪɴsᴛᴀʟʟ**: `pip install numpy`
+  - **ᴇxᴀᴍᴘʟᴇ**: `np.array([1, 2, 3])`
+  - **ᴀɪ**: Core for data manipulation.
+
+- **pandas**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Data analysis with DataFrames.
+  - **ɪɴsᴛᴀʟʟ**: `pip install pandas`
+  - **ᴇxᴀᴍᴘʟᴇ**: `pd.DataFrame({'col': [1, 2, 3]})`
+  - **ᴀɪ**: Data preprocessing.
+
+- **scikit-learn**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Machine learning algorithms.
+  - **ɪɴsᴛᴀʟʟ**: `pip install scikit-learn`
+  - **ᴇxᴀᴍᴘʟᴇ**: `sklearn.linear_model.LinearRegression()`
+  - **ᴀɪ**: Classical ML.
+
+- **tensorflow**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Deep learning framework.
+  - **ɪɴsᴛᴀʟʟ**: `pip install tensorflow`
+  - **ᴇxᴀᴍᴘʟᴇ**: `tf.keras.models.Sequential()`
+  - **ᴀɪ**: Neural networks.
+
+- **pytorch**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Deep learning for research.
+  - **ɪɴsᴛᴀʟʟ**: `pip install torch`
+  - **ᴇxᴀᴍᴘʟᴇ**: `torch.nn.Module()`
+  - **ᴀɪ**: Dynamic networks.
+
+- **matplotlib**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Plotting and visualization.
+  - **ɪɴsᴛᴀʟʟ**: `pip install matplotlib`
+  - **ᴇxᴀᴍᴘʟᴇ**: `plt.plot([1, 2, 3])`
+  - **ᴀɪ**: Data visualization.
+
+- **seaborn**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Statistical visualizations.
+  - **ɪɴsᴛᴀʟʟ**: `pip install seaborn`
+  - **ᴇxᴀᴍᴘʟᴇ**: `sns.heatmap(data)`
+  - **ᴀɪ**: Data exploration.
+
+- **scipy**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Scientific computing.
+  - **ɪɴsᴛᴀʟʟ**: `pip install scipy`
+  - **ᴇxᴀᴍᴘʟᴇ**: `scipy.optimize.minimize()`
+  - **ᴀɪ**: Advanced computations.
+
+- **nltk**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Natural language processing.
+  - **ɪɴsᴛᴀʟʟ**: `pip install nltk`
+  - **ᴇxᴀᴍᴘʟᴇ**: `nltk.tokenize.word_tokenize(text)`
+  - **ᴀɪ**: Text processing.
+
+- **spacy**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Advanced NLP.
+  - **ɪɴsᴛᴀʟʟ**: `pip install spacy`
+  - **ᴇxᴀᴍᴘʟᴇ**: `spacy.load('en_core_web_sm')`
+  - **ᴀɪ**: NLP tasks.
+
+- **transformers**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: State-of-the-art NLP models.
+  - **ɪɴsᴛᴀʟʟ**: `pip install transformers`
+  - **ᴇxᴀᴍᴘʟᴇ**: `transformers.BertTokenizer.from_pretrained('bert-base-uncased')`
+  - **ᴀɪ**: Deep learning NLP.
+
+### Cybersecurity-Specific (Most Common)
+- **scapy**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Packet manipulation and scanning.
+  - **ɪɴsᴛᴀʟʟ**: `pip install scapy`
+  - **ᴇxᴀᴍᴘʟᴇ**: `scapy.sniff(count=10)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Network analysis.
+
+- **pycryptodome**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Cryptographic library (AES, RSA).
+  - **ɪɴsᴛᴀʟʟ**: `pip install pycryptodome`
+  - **ᴇxᴀᴍᴘʟᴇ**: `Crypto.Cipher.AES.new(key, AES.MODE_CBC)`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Encryption.
+
+- **paramiko**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: SSH client/server.
+  - **ɪɴsᴛᴀʟʟ**: `pip install paramiko`
+  - **ᴇxᴀᴍᴘʟᴇ**: `paramiko.SSHClient()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Remote access.
+
+- **pyOpenSSL**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: SSL/TLS bindings.
+  - **ɪɴsᴛᴀʟʟ**: `pip install pyOpenSSL`
+  - **ᴇxᴀᴍᴘʟᴇ**: `OpenSSL.crypto.X509()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Certificate handling.
+
+- **nmap**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Nmap interface for scanning.
+  - **ɪɴsᴛᴀʟʟ**: `pip install python-nmap`
+  - **ᴇxᴀᴍᴘʟᴇ**: `nmap.PortScanner()`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Network discovery.
+
+- **yara-python**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Pattern matching for malware.
+  - **ɪɴsᴛᴀʟʟ**: `pip install yara-python`
+  - **ᴇxᴀᴍᴘʟᴇ**: `yara.compile(rules).match('file')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Malware detection.
+
+- **pwntools**
+  - **ᴇxᴘʟᴀɴᴀᴛɪᴏɴ**: Exploit development toolkit.
+  - **ɪɴsᴛᴀʟʟ**: `pip install pwntools`
+  - **ᴇxᴀᴍᴘʟᴇ**: `pwn.process('./binary')`
+  - **ᴄʏʙᴇʀsᴇᴄᴜʀɪᴛʏ**: Exploit crafting.
+
+Notes
+-----
+- **Standard Library**: No installation needed; part of Python.
+- **Third-Party**: Install with `pip install <package>`.
+- **Discover More**: Use `help('modules')` for standard library or `pip search <keyword>` for PyPI.
+- **Relevance to word_index_gen_03.py**: Imports like `re`, `sys`, `collections` are used for regex, file processing, and indexing.
+"""
+    with open('python_imports.txt', 'w') as f:
+        f.write(imports_content)
+    print("File 'python_imports.txt' created successfully.")
+
+if __name__ == "__main__":
+    write_imports_to_file()
