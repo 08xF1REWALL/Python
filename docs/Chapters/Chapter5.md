@@ -105,4 +105,39 @@ print([callable(obj) for obj in (abs, str, 13)])
 
 ## Function Introspection
 
+## From Positional to Keyword-Only Parameters
 
+## Retrieving Information about Parameters
+using bobo Bobo web framework, which helps build web APIs 
+to run 
+1. bobo -f bobo.py
+2. curl -i http://localhost:8080/?person=Ali
+```py
+import bobo
+@bobo.query('/') # decoder that tells bobo when someone visit the URL path / call hello function 
+def hello(person):
+ return 'Hello %s!' % person
+
+```
+
+- Function to shorten a string by clipping at a space near the desired length
+
+```py
+def clip(text, max_len=80)
+"""Return text clipped at the last space before or after max_len
+ """
+end = None
+if len(text) > max_len:
+    space_before = text.rfind(' ', 0, max_len) # space before the limit
+    if space_before >= 0:
+        end = space_before
+    else:
+        space_after = text.rfind(' ', max_len) # if space after the limit
+        if space_after >= 0:
+            end = space_after
+if end is None: # no spaces were found
+    end = len(text)
+    return text[:end].rstrip()
+
+
+```
