@@ -141,3 +141,42 @@ if end is None: # no spaces were found
 
 
 ```
+
+## inspect
+Most function parameters in Python fall into this category unless you explicitly use *args, **kwargs, or /, *.
+
+```py
+
+from inspect import signature
+
+def greet(name, greeting="Hello"):
+    return f"{greeting}, {name}!"
+
+sig = signature(greet)
+print(sig)
+
+for name, param in sig.parameters.items():
+    print(param.kind, ':', name, '=', param.default)
+    
+# positionally pass like func("Alice")
+# or by keyword (like func(name= "Alice"))
+
+```
+
+- POSITIONAL_OR_KEYWORD
+A parameter that may be passed as positional or as a keyword argument
+
+- VAR_POSITIONAL
+A tuple of positional parameters
+
+- VAR_KEYWORD
+A dict of keyword parameters
+
+- KEYWORD_ONLY
+A keyword-only parameter
+
+```py
+import inspect
+sig = inspect.signature(tag)
+
+```
