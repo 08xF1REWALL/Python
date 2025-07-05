@@ -111,13 +111,13 @@ print([callable(obj) for obj in (abs, str, 13)])
 using bobo Bobo web framework, which helps build web APIs 
 to run 
 1. bobo -f bobo.py
-2. curl -i http://localhost:8080/?person=Ali
+2. curl -i http://localhost:8080/?person=Celine
 ```py
 import bobo
 @bobo.query('/') # decoder that tells bobo when someone visit the URL path / call hello function 
 def hello(person):
  return 'Hello %s!' % person
-
+    
 ```
 
 - Function to shorten a string by clipping at a space near the desired length
@@ -226,4 +226,63 @@ for city in metro_data:
 
 
 ```
-## demo of attrgetter to process a ppre
+## demo of attrgetter to process to process a previously definded list of nametuple called metro_data
+
+```py
+from collections import namedtuple
+
+metro_data = [
+    ('Tokyo', 'JP', 36.933, (35.689722, 139.691667)),
+    ('Delhi NCR', 'IN', 21.935, (28.613889, 77.208889)),
+    ('Mexico City', 'MX', 20.142, (19.433333, -99.133333)),
+    ('New York-Newark', 'US', 20.104, (40.808611, -74.020386)),
+    ('São Paulo', 'BR', 19.649, (-23.547778, -46.635833)),
+]
+
+LatLong = namedtuple('LatLong', 'lat long')
+Metropolis = namedtuple('Metropolis', 'name cc pop coord')
+
+metro_data = [Metropolis(name, cc, pop, LatLong(lat, long))]
+from name, cc, pop, (lat, long) in metro_data:
+print(metro_data(0))
+print(metro_data[0].coord.lat)
+
+```
+
+## Function defined in operator 
+
+```py
+ [name for name in dir(operator) if not name.startswith('_')]
+['abs', 'add', 'and_', 'attrgetter', 'concat', 'contains',
+'countOf', 'delitem', 'eq', 'floordiv', 'ge', 'getitem', 'gt',
+'iadd', 'iand', 'iconcat', 'ifloordiv', 'ilshift', 'imod', 'imul',
+'index', 'indexOf', 'inv', 'invert', 'ior', 'ipow', 'irshift',
+'is_', 'is_not', 'isub', 'itemgetter', 'itruediv', 'ixor', 'le',
+'length_hint', 'lshift', 'lt', 'methodcaller', 'mod', 'mul', 'ne',
+'neg', 'not_', 'or_', 'pos', 'pow', 'rshift', 'setitem', 'sub',
+'truediv', 'truth', 'xor']
+
+```
+## Methodcaller 
+
+```py
+from operator import methodcaller
+s = 'the time has come'
+upcase = methodcaller('upper')
+print(upcase(s))
+
+t = methodcaller('replace', ' ', '-')
+print(t(s))
+print(str.upper(s))
+
+```
+
+## Freezing func with functool.partial
+
+```py
+from operator import mul
+from functools import partial
+triple = partial(mul, 3)
+print(partial(8))
+print(list(map(triple, range(1, 10))))
+```
