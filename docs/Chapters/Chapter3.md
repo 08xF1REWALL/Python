@@ -233,3 +233,27 @@ How It Works
 - Membership testing is very efficient.
 - Element ordering depends on insertion order.
 - Adding elements to a set may change the order of other elements.
+
+
+## What is Hashable
+
+An object i hashable if a hash value which never change during its lifetime, and can be compared to other objjects. Hashable objects which compare must have the same hash value.
+
+The atomic immutable types(str, nytes, numeric types) are all hashable. A frozen set is always hashable, because its elements must be hashable by definition. A tuple is hashable only if all its items are hashable 
+
+```py
+tt = (1, 2, (30, 40))
+print(hash(tt))
+8027212646858338501
+
+tl = (1, 2,[30, 40])
+print(hash(tl))
+Traceback (most recent call last):
+ File "<stdin>", line 1, in <module>
+TypeError: unhashable type: 'list'
+
+tf = (1, 2, frozenset([30, 40]))
+print(hash(tf))
+-4118419923444501110
+
+```
