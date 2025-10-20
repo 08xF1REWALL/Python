@@ -1,5 +1,7 @@
 # Debugging and Debugging Design
-General purpse CPU Registers count 8
+Debuggers enable you to perform runtime tracing of a process,or dynamic analysis
+
+## General purpse CPU Registers count 8
 - EAX register
 1. the accumulator register, is used for performing optimized instrictions in x86 instruction are set to move data. Most operation like add, subtract, and compare. As well more specialized operations like multiplication or devision can only occur within the EAX register.
 2. you can easily determine if a function call has failed or succeeded based on the value stored in the EAX register.
@@ -27,3 +29,88 @@ The EBP register is used to point to the bottom. In some cases a compiler may us
 - The EBX register is the only register is not desinged for anything specific. It can be used for extra storage.
 
 - EIP register is the that points to the current intruction that is being executed. As the CPU moves through the binary execution code, EIP is updated to reflect the location where the execution is occurring . The Debugger must be able to easily read and modify the content of these to interact with the CPU and retriece the or modify these values.
+
+## The Stack
+Stores information about how function is called, the parameters it takes, and how it should return after it is finshed executing. The stack is a first in, last out(FILO) structure. Where aruments are pushed onto the stack for a function call and popped of the stack when function is finished. the ESP register is used to track the very top of the stack frame. and the EBP register is used to track the bottom of the stack frame. The stack grows from high memory addresses to low memory address. 
+
+stack functions:
+- push reg/imm/mem Decrements the stack pointer and stores a value on the stack
+- pop reg/mem Loads a value from the stack into a register/memory and increments the stack pointer
+- call label Pushes the return address (next instruction) onto the stack, then jumps to the function label
+- ret Pops the return address off the stack and jumps back to it
+- enter / leave
+Set up / tear down stack frame (optional shorthand for push ebp + mov ebp, esp and mov esp, ebp + pop ebp)
+
+```assembly
+; Example function: add_numbers(a, b)
+add_numbers:
+    push ebp            ; Save old base pointer
+    mov  ebp, esp       ; Create new stack frame
+    mov  eax, [ebp+8]   ; Load first argument (a)
+    add  eax, [ebp+12]  ; Add second argument (b)
+    pop  ebp            ; Restore base pointer
+    ret                 ; Return (jumps to address from stack)
+
+; and the caller
+main:
+    push 5              ; Push argument b
+    push 3              ; Push argument a
+    call add_numbers    ; Push return address and jump
+    add  esp, 8         ; Clean up arguments (2 × 4 bytes)
+    ; Result is now in EAX
+
+```
+
+Example: 
+function call in C
+```c
+int my_socks(colore_one, color_two, color_three);
+
+```
+```assembly
+push color_three
+push color_two
+push color_one
+call my_socks
+```
+
+## Debug Events
+Debuggers run as an endless loop that waits for a debugging event to occur. When debugging event occur, the loop breaks, and a corresponding event handler is called.
+When an event handler is called, the debugger halts and awaits directions on how to continue. Some of the common events that a debugger must trap are these:
+1. Breakpoints
+2. Memory violations
+3. Exceptions gernerated by the debugged program.
+
+## Breakpoints
+The ability to halt a process that is being debugged is achived by setting breakpoints. There are three primary breakpoint types:
+1. soft breakpoints
+2. hardware breakpoints
+3. memory breakpoints
+
+## Soft Breakpoints
+are used specifically to halt the cpu when executing instructions. A soft breakpoint us a single-byte instruction that stops executing of the debugged process and passes control to the debugger's breakpoint exception handler. to understand this. We need to know the difference between an instruction and an opcode in x86 assembly.
+
+An assembly instruction is a high-level representation of a command for the CPU to execute. An example is 
+MOV EAX, EBX this instruction tells the CPU to move the value stored in the register EBX to EXA.
+opcode means operation code, is a machine language command that the CPU executes. 
+0x44332211: 8BC3 MOV EAX, EBX
+this shows the address, the opcodem and the high-level assemnbly instruction. In order to set a breakpoint at this address and halt the CPU, we have to swap out a single byte from the 2-bytes 8BC opcode. This single byte represents the interrupt 3(INT 3) instruction, which tells the CPU to halt. The INT 3 instruction is converted into the single-byte opcode 0xCC. Here is our previous example, before and after the breakpoint.
+before:
+0x44332211: 8BC3 MOV EAX, EBX
+after:
+0x44332211: CCC3 MOV EAX, EBX
+8B swaped to CC byte
+in opcode 8BC3 means  MOV EAX, EBX 
+
+How the debugger works: When a debugger is hold to set a breakpoint at a address, it reads the first opcode byte at the requested address and stores it. Then the debugger writes the CC byte to that address. When a breakpoint, or INT3, event is triggered by the CPU interperting the CC opcode, the debugger catches it. The debugger then checks to see if the instruction pointer EIP register is pointing to an address on which it had set a breakpoint previouisly. If the address is found in the debugger's internal breakpoint list, it wirtes back the stored byte to that address so that the opcode can execute properly after the process is resumed. 
+
+A CRC is a type of function that is used to determine
+if data has been altered in any way, and it can be applied to files, memory,
+text, network packets, or anything you would like to monitor for data alteration.
+
+A CRC will take a range of values—in this case the running process’s
+memory—and hash the contents.
+
+It then compares the hashed value against
+a known CRC checksum to determine whether there have been changes to
+the data
