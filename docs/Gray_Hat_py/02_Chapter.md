@@ -111,6 +111,42 @@ text, network packets, or anything you would like to monitor for data alteration
 A CRC will take a range of values—in this case the running process’s
 memory—and hash the contents.
 
-It then compares the hashed value against
-a known CRC checksum to determine whether there have been changes to
-the data
+It then compares the hashed value against a known CRC checksum to determine whether there have been changes to the data.
+If the check sum is different from the checksum that is stored in fir the validation the CRC check fails. This is important to note as quite often malware will test it's running code in memory for any CRC changes and will kill itself if a failure is detected. This is a very effective technique to slow reverse engineering and prevent the use of soft breakpoints. A work around is to use hardware breakpoints.
+
+## Hardware Breakpoints
+are useful when a small number of breakpoints are desired and the debugged software itself cannot be modified. This type is set at CPU level, in special registers called debug registers. A typical register has 8 debug registers DR0-DR7. DR0-DR3 are reserved for the addresses of the break point. DR4 and DR5 are reserved and DR6 is used as the status register, which determines the type of debugging event triggered by the breakpoint once it is hit. Debug register DR7 is essentially the on/off switch for the hardware breakpoints. and also stores the different breakpoint conditions. By setting specific flags in the DR7 register, you can create breakpoint for the following conditions:
+
+1. Break when an instruction is executed at a particular address
+2. Break when data is written to an address
+3. Break on reads or writes to an address but not execution
+this is very useful as you have the ability to set up to four very specific conditionl breakpoints with out modifiying the running process.
+
+Bits 0-7 are essentially the on/off switches for activating breakpoints. The L and G fields in bits 0-7 stand for local and global scope. Bits 8-15 in DR7 are not used for the normal debugging purposes that we will be exercising. Bits 16-31 determine the type and length of the breakpoint that is being set for the related debug register.
+
+Hardware breakpoints are extremely useful, but they do come with
+some limitations. Aside from the fact that you can set only four individual
+breakpoints at a time, you can also only set a breakpoint on a maximum of
+four bytes of data.
+
+## Memory Breakpoints
+aren't really breakpoints at all. When a debugger setting a memory breakpoint it is changing the premissions on a region, or page, of memory. A memory page is the smallest poriton of memory that an operating system handles. When a memory page is allocated, it has specific access premissions set, which dictate how the memory can be accessed.
+
+Memory page premissions types:
+    - Page excecution: this enables execution but throws an access violation if the process attempts to read or write to the page.
+    - Page read: this enables the process only to read from the page; any writes or execution attempts cause an access violation
+    - Page write: this allows the process to write into the page
+    - Guard page: any access to a guard page results in a one time execution and then the page returns to its original status.
+
+The page permission we are interested in is the guard page. This type
+of page is quite useful for such things as separating the heap from the stack
+or ensuring that a portion of memory doesn’t grow beyond an expected
+boundary. It is also quite useful for halting a process when it hits a particular
+section of memory.
+For example, if we are reverse engineering a networked
+server application, we could set a memory breakpoint on the region of
+memory where the payload of a packet is stored after it’s received. This
+would enable us to determine when and how the application uses received
+packet contents, as any accesses to that memory page would halt the CPU,
+throwing a guard page debugging exception. We could then inspect the
+instruction that accessed the buffer in memory and determine what it is doing with the contents
