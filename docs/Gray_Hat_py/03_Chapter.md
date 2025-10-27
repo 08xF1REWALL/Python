@@ -26,3 +26,22 @@ BOOL WINAPI CreateProcessA(
  LPPROCESS_INFORMATION lpProcessInformation
 );
 ```
+
+## Soft breakpoints
+```C
+BOOL WINAPI ReadProcessMemory(
+ HANDLE hProcess,
+ LPCVOID lpBaseAddress,
+ LPVOID lpBuffer,
+ SIZE_T nSize,
+ SIZE_T* lpNumberOfBytesRead
+);
+
+BOOL WINAPI WriteProcessMemory(
+ HANDLE hProcess,
+ LPCVOID lpBaseAddress,
+ LPCVOID lpBuffer,
+ SIZE_T nSize,
+ SIZE_T* lpNumberOfBytesWritten
+);
+```
