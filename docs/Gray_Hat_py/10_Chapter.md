@@ -169,4 +169,32 @@ like, and then we’ll see how to decode the assembly to retrieve the IOCTL
 code values. 
 
 ```c
-NTSTATUS IOCTLDispatch(IN PDEVICE_OBJECT DeviceObject, IN P)
+NTSTATUS IOCTLDispatch(IN PDEVICE_OBJECT DeviceObject, IN Irp)
+{
+    ULONG FunctionCode;
+    PIO_STACK_LOCATION irpSp;
+    //setup code to get the request initialized
+    irpSp = IoGetCurrentIrpStackLocation(Irp);
+    // function code retrieval
+    FunctionCode = irpSp->Parameters.DeviceIoControl.IoControlCode;
+    // once the IOCTL code has benn determined, preform a specific action
+    switch (FunctionCode) {
+        case 0x1337:
+            // Preform action a
+            break;
+        case 0x1338:
+            // Preform action b
+            break;
+        case 0x1339:
+            // Preform action c
+            break;
+        default:
+            status = STATUS_INVALID_DEVICE_REQUEST;
+            break;
+    }
+    
+    Irp->IoStatus.Status = STATUS_SUCCESS;
+    IoCompleteRequest(Irp, IO_NO_INCREMENT);
+    return STATUS_SUCCESS;
+}
+```
